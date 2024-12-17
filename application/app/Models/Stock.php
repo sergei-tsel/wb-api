@@ -9,6 +9,8 @@ class Stock extends Model
 {
     use HasFactory;
 
+    protected $table = 'stocks';
+
     protected $hidden = [
         'updated_at',
         'created_at',
