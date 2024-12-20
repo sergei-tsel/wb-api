@@ -14,16 +14,20 @@ class StockRepository extends AbstractRepository
     public function pullAll(): void
     {
         $this->pullMany([
-            'dateFrom' => Carbon::today()->startOfDay()->format("Y-m-d H:i:s"),
+            'dateFrom' => Carbon::today()->format("Y-m-d"),
         ]);
     }
 
     public function save(array $data): void
     {
+        $values = [];
+
         foreach ($data as $item) {
-            $this::MODEL::query()->insert([
-                'data' => $item,
-            ]);
+            $values[] = [
+                'data' => json_encode($item),
+            ];
         }
+
+        $this::MODEL::query()->insert($values);
     }
 }
